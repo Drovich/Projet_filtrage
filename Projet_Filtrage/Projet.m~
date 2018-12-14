@@ -20,13 +20,13 @@ b=randn(1,Mb);
 binit=zeros(1,Mb);
 
 % y=cell2mat(EGG.dataEEG(1,1,1))';
-for i=1:1000
+for i=1:100
     y=randn(1,1000);
 
     % t=[1:1000];
     % y=[1:1000]+10+0.1*randn(1,1000);
     % [alpha beta] = moindre_carre(y,t)
-    [J,alpha_dfa(i),beta_dfa,yinit,Al,lF_dfa] = DFA_function(y);
+    [J,alpha_dfa(i),beta_dfa,yinit,Al,] = DFA_function(y);
     % 
     [JDMA,alpha_dma(i),beta_dma,yinit,yinit_dma,lF_dma,ltF] = DMA_functionv2(y);
 %     i
@@ -56,20 +56,13 @@ hold off
 % hold off
 
 figure
-plot(ltF,lF_dfa);
+plot(ltF,lF);
 xlabel('log(N)');
-ylabel('log(F_dna(N))');
-title('Représentation de la puissance du résidu dans la plan log(N)/log(F(N))');
-hold on
-plot(ltF,(xminimDFA));
-hold off
-
-figure
-plot(ltF,lF_dma);
-xlabel('log(N)');
-ylabel('log(F_dfa(N))');
+ylabel('log(F(N))');
 title('Représentation de la puissance du résidu dans la plan log(N)/log(F(N))');
 hold on
 plot(ltF,(xminimDMA));
+plot(ltF,(xminimDFA));
+hold off
 
 
