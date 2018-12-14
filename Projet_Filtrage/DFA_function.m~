@@ -1,26 +1,11 @@
-clear all;
-close all;
-clc;
-
-%% PARTIE 1
-
-
-EGG= load('dataEEG.mat');
+function [J,alpha,beta,yinit,Al] = DFA_function(y)
 
 %% Constante
-Mb=2048;
 Nb=64;
 fech=1*10^3;
-Lb = floor(Mb/Nb);
 
 
 %% Initialisation
-
-b=randn(1,Mb);
-binit=zeros(1,Mb);
-
-y=cell2mat(EGG.dataEEG(1,1,1))';
-% y=randn(1,1000);
 N=64;
 M=length(y);
 t = (1:1:M)/fech;
@@ -31,7 +16,7 @@ L = floor(M/N);
 
 
 
-figure 
+figure
 subplot(2,1,1)
 plot(t,y);
 xlabel('Temps (s)');
@@ -41,29 +26,29 @@ subplot(2,1,2)
 spectrogram(y,2,0,512,fech,'yaxis');
 % [s,f,t,p] = spectrogram(y,2048,64,128,Fs);
 % plot(t,f);
-% xlim[0 : 
+% xlim[0 :
 % xlabel('Temps (s)');
 % ylabel('Fréquence (Hz)');
 % title('Représentation temps fréquence de y (bruit blanc)');
-%  
+%
 %% Extraction du profil
 
 for m = 1:M
     yinit(1,m) = sum(y(1,1:m) - mean(y));
 end
 N=200;
-    L=floor(M/N);
-    temp=zeros(1,N);
-    Al=zeros(2,L);
-    n=[1:N];
-    Sigma=zeros(2,1);
-    J = zeros(1,L);
-    x = zeros(N,L);
-   
+L=floor(M/N);
+temp=zeros(1,N);
+Al=zeros(2,L);
+n=[1:N];
+Sigma=zeros(2,1);
+J = zeros(1,L);
+x = zeros(N,L);
+
 %     F=0;
 % %     % On résout l'équation matricielle MS*Al = Sigma, en inversant la matrice
 % %     % MS, on obtient Al qui contient al,0 et al,1
-% %     
+% %
 figure 
 plot(t,yinit);
 xlabel('Temps (s)');
