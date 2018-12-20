@@ -1,4 +1,4 @@
-function [J,alpha,beta,yinit,yinit_filt,lF,ltF] = DMA_function(y,Al)
+function [J,alpha,beta,yinit,yinit_filt,lF,ltF] = DMA_functionv2(y)
 
 %% Initialisation
 M=length(y);

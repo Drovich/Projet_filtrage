@@ -19,9 +19,25 @@ Lb = floor(Mb/Nb);
 b=randn(1,Mb);
 binit=zeros(1,Mb);
 
-% y=cell2mat(EGG.dataEEG(1,1,1))';
-for i=1:1000
-    y=randn(1,1000);
+y=cell2mat(EGG.dataEEG(1,1,1))';
+for i=1:5
+%     y=randn(1,1000);
+    y=cell2mat(EGG.dataEEG(1,2,i))';
+
+    % t=[1:1000];
+    % y=[1:1000]+10+0.1*randn(1,1000);
+    % [alpha beta] = moindre_carre(y,t)
+    [J,alpha_dfa(i),beta_dfa,yinit,Al,lF_dfa] = DFA_function(y);
+    % 
+    [JDMA,alpha_dma(i),beta_dma,yinit,yinit_dma,lF_dma,ltF] = DMA_functionv2(y);
+%     i
+
+% % [JDMA,alphaDMA,betaDMA,yinitDFA,yinitDMA] = DMA_functionv2(y,Al);
+
+end
+for i=6:10
+%     y=randn(1,1000);
+    y=cell2mat(EGG.dataEEG(1,1,i-5))';
 
     % t=[1:1000];
     % y=[1:1000]+10+0.1*randn(1,1000);
@@ -58,7 +74,7 @@ hold off
 figure
 plot(ltF,lF_dfa);
 xlabel('log(N)');
-ylabel('log(F_dna(N))');
+ylabel('log(F_{dma}(N))');
 title('Représentation de la puissance du résidu dans la plan log(N)/log(F(N))');
 hold on
 plot(ltF,(xminimDFA));
@@ -67,7 +83,7 @@ hold off
 figure
 plot(ltF,lF_dma);
 xlabel('log(N)');
-ylabel('log(F_dfa(N))');
+ylabel('log(F_{dfa}(N))');
 title('Représentation de la puissance du résidu dans la plan log(N)/log(F(N))');
 hold on
 plot(ltF,(xminimDMA));

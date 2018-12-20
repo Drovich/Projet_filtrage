@@ -1,4 +1,4 @@
-function [J,alpha,beta,yinit,Al,lF] = DFA_function(y)
+function [J,alpha,beta,yinit,Al,lF,ltF] = DFA_function(y)
 
 %% Initialisation
 M=length(y);

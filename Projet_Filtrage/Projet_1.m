@@ -29,8 +29,6 @@ L = floor(M/N);
 
 %% Représentation temporelle et temps fréquence
 
-
-
 figure 
 subplot(2,1,1)
 plot(t,y);
@@ -61,9 +59,9 @@ N=200;
     x = zeros(N,L);
    
 %     F=0;
-% %     % On résout l'équation matricielle MS*Al = Sigma, en inversant la matrice
-% %     % MS, on obtient Al qui contient al,0 et al,1
-% %     
+%     % On résout l'équation matricielle MS*Al = Sigma, en inversant la matrice
+%     % MS, on obtient Al qui contient al,0 et al,1
+     
 figure 
 plot(t,yinit);
 xlabel('Temps (s)');
@@ -136,7 +134,7 @@ figure
 plot(ltF,lF);
 xlabel('log(N)');
 ylabel('log(F(N))');
-title('Représentation de la puissance du résidu dans la plan log(N)/log(F(N))');
+title('Représentation de la puissance du résidu dans le plan log(F(N)) log(N)');
 hold on
 plot(ltF,(xminim));
 

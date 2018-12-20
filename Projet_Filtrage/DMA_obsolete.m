@@ -1,4 +1,4 @@
-function [J,alpha,beta,yinit,yinitt] = DMA_function(y)
+function [J,alpha,beta,yinit,yinitt] = DMA_functionv2(y)
 %% PARTIE 1
 
 %% Constante
