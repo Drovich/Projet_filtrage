@@ -15,7 +15,7 @@ t = (1:1:M)/fech;
 yinit=zeros(1,M);
 L = floor(M/N);
 
-%% Repr√©sentation temporelle et temps fr√©quence
+%% ReprÈsentation temporelle et temps frÈquence
 
 
 %% Extraction du profil
@@ -38,7 +38,7 @@ x = zeros(N,L);
 
    
 
-%% D√©composition du profil en L segment de taille N
+%% DÈcomposition du profil en L segment de taille N
 NB = M/4;
 % F=zeros(1,floor(NB));
 % FDFA=zeros(1,floor(NB));
@@ -48,8 +48,8 @@ FDFA=zeros(1,length(N_tab));
 for k=1:length(N_tab)
     N=N_tab(k);
 %     N=k+2;
-    %% Utilisation de la m√©thode des moindres carr√©s pour minimiser le crit√®re Jdfa
-    % on applique cette m√©thode √† chaque valeur de l appartenant √† [1,L]
+    %% Utilisation de la mÈthode des moindres carrÈs pour minimiser le crit√®re Jdfa
+    % on applique cette mÈthode √† chaque valeur de l appartenant √† [1,L]
     % on se retrouve alors avec un tableau contenant le couple de minimum
     %(a1,l ; a0,l)
     
@@ -69,7 +69,7 @@ for k=1:length(N_tab)
     [gd,w] = grpdelay(b,a);
     yinitt = yinittb(floor(gd)+1:length(yinittb)-floor(gd)+1);
 %     yinittest = yinittb(floor(N/2)+1:length(yinittb)-floor(N/2)+1);
-    % On r√©sout l'√©quation matricielle MSAl = Sigma, en inversant la matrice
+    % On rÈsout l'Èquation matricielle MSAl = Sigma, en inversant la matrice
     % MS, on obtient Al qui contient al,0 et al,1
     X=[];
     for l = 1:L
@@ -79,7 +79,7 @@ for k=1:length(N_tab)
         [Al(1,l) Al(2,l)] = moindre_carre(yinitl,nbeta);
         
         x(:,l) = (Al(1,l)*nbeta.' + Al(2,l));
-        %% tendance locale que l'on soustrait au profil filtrer pour trouver le r√©sidu
+        %% tendance locale que l'on soustrait au profil filtrer pour trouver le rÈsidu
         JDFA(1,l) = sum( (yinitl - x(:,l).').^2 );
         X = [X x(:,l).'];
     end
@@ -88,7 +88,7 @@ for k=1:length(N_tab)
     FDFA(1,k)=(1/(N*L)*FDFA(1,k)).^0.5;
 
     
-    %% On calcule le r√©sidu
+    %% On calcule le rÈsidu
     F(1,k)=sum(J(1,:));
     F(1,k)=(1/(N*L)*F(1,k)).^0.5;
     
@@ -124,7 +124,7 @@ xminim = alpha*ltF + beta;
 % plot(ltF,lF);
 % xlabel('log(N)');
 % ylabel('log(F(N))');
-% title('Repr√©sentation de la puissance du r√©sidu dans la plan log(N)/log(F(N))');
+% title('ReprÈsentation de la puissance du rÈsidu dans la plan log(N)/log(F(N))');
 % hold on
 % plot(ltF,(xminim));
 

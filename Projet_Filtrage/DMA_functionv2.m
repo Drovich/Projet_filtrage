@@ -4,7 +4,7 @@ function [J,alpha,beta,yinit,yinit_filt,lF,ltF] = DMA_functionv2(y)
 M=length(y);
 yinit=zeros(1,M);
 
-%% Repr√©sentation temporelle et temps fr√©quence
+%% ReprÈsentation temporelle et temps frÈquence
 
 %
 %% Extraction du profil
@@ -13,7 +13,7 @@ for m = 1:M
     yinit(1,m) = sum(y(1,1:m) - mean(y));
 end
 
-%% D√©composition du profil en L segment de taille N
+%% DÈcomposition du profil en L segment de taille N
 % Nb=floor(M/4);
 N_tab=[11 13 17 21 27 35 47 59 77 101];
 F=zeros(1,length(N_tab));
@@ -22,8 +22,8 @@ F=zeros(1,length(N_tab));
 for k=1:length(N_tab)
     N=N_tab(k);
 %     N=k+2;
-    %% Utilisation de la m√©thode des moindres carr√©s pour minimiser le crit√®re Jdfa
-    % on applique cette m√©thode √† chaque valeur de l appartenant √† [1,L]
+    %% Utilisation de la mÈthode des moindres carrÈs pour minimiser le crit√®re Jdfa
+    % on applique cette mÈthode √† chaque valeur de l appartenant √† [1,L]
     % on se retrouve alors avec un tableau contenant le couple de minimum
     %(a1,l ; a0,l)
     L=floor(M/N);
@@ -34,7 +34,7 @@ for k=1:length(N_tab)
 
     J = (yinit - yinit_filt ).^2 ;
     
-    %% On calcule le r√©sidu
+    %% On calcule le rÈsidu
     F(1,k)=sum(J);
     F(1,k)=(1/(N*L)*F(1,k)).^0.5;
     

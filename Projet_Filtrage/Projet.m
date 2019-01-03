@@ -75,7 +75,7 @@ figure
 plot(ltF,lF_dfa);
 xlabel('log(N)');
 ylabel('log(F_{dma}(N))');
-title('ReprÃ©sentation de la puissance du rÃ©sidu dans la plan log(N)/log(F(N))');
+title('Représentation de la puissance du résidu dans la plan log(N)/log(F(N))');
 hold on
 plot(ltF,(xminimDFA));
 hold off
@@ -84,7 +84,7 @@ figure
 plot(ltF,lF_dma);
 xlabel('log(N)');
 ylabel('log(F_{dfa}(N))');
-title('ReprÃ©sentation de la puissance du rÃ©sidu dans la plan log(N)/log(F(N))');
+title('Représentation de la puissance du résidu dans la plan log(N)/log(F(N))');
 hold on
 plot(ltF,(xminimDMA));
 

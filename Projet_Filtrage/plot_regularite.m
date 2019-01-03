@@ -3,7 +3,7 @@ xminimDMA = alpha*ltF + beta;
 plot(ltF,lF);
 xlabel('log(N)');
 ylabel('log(F(N))');
-title('ReprÃ©sentation de la puissance du rÃ©sidu dans la plan log(N)/log(F(N))');
+title('Représentation de la puissance du résidu dans la plan log(N)/log(F(N))');
 hold on
 plot(ltF,(xminimDMA));
 hold off

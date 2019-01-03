@@ -27,7 +27,7 @@ t = (1:1:M)/fech;
 yinit=zeros(1,M);
 L = floor(M/N);
 
-%% Repr√©sentation temporelle et temps fr√©quence
+%% ReprÈsentation temporelle et temps frÈquence
 
 
 
@@ -36,15 +36,15 @@ subplot(2,1,1)
 plot(t,y);
 xlabel('Temps (s)');
 ylabel('y(t)');
-title('Repr√©sentation temporelle de y(t) (bruit blanc)');
+title('ReprÈsentation temporelle de y(t) (bruit blanc)');
 subplot(2,1,2)
 spectrogram(y,2,0,512,fech,'yaxis');
 % [s,f,t,p] = spectrogram(y,2048,64,128,Fs);
 % plot(t,f);
 % xlim[0 :
 % xlabel('Temps (s)');
-% ylabel('Fr√©quence (Hz)');
-% title('Repr√©sentation temps fr√©quence de y (bruit blanc)');
+% ylabel('FrÈquence (Hz)');
+% title('ReprÈsentation temps frÈquence de y (bruit blanc)');
 %
 %% Extraction du profil
 
@@ -61,14 +61,14 @@ J = zeros(1,L);
 x = zeros(N,L);
 
 %     F=0;
-% %     % On r√©sout l'√©quation matricielle MS*Al = Sigma, en inversant la matrice
+% %     % On rÈsout l'Èquation matricielle MS*Al = Sigma, en inversant la matrice
 % %     % MS, on obtient Al qui contient al,0 et al,1
 % %
 % figure
 % plot(t,yinit);
 % xlabel('Temps (s)');
 % ylabel('yint(t)');
-% title('Repr√©sentation temporelle du profil de y(t) yint(t)');
+% title('ReprÈsentation temporelle du profil de y(t) yint(t)');
 % hold on
 % for l = 1:L
 %     nbeta=n+N*(l-1);
@@ -83,20 +83,20 @@ x = zeros(N,L);
 %     plot(nbeta/fech,x(:,l));
 %     xlabel('Temps (s)');
 %     ylabel('yinit(t)');
-%     title('Repr√©sentation temporelle de yint(t) avec les tendances locales');
+%     title('ReprÈsentation temporelle de yint(t) avec les tendances locales');
 %     plot([N*l N*l ]/fech,[-1.5 2.5]*10^-3,'r')
 % end
 
 
-%% D√©composition du profil en L segment de taille N
+%% DÈcomposition du profil en L segment de taille N
 NB = M/4;
 F=zeros(1,floor(NB));
 FDFA=zeros(1,floor(NB));
 
 for k=1:floor(NB)
     N=k+2;
-    %% Utilisation de la m√©thode des moindres carr√©s pour minimiser le crit√®re Jdfa
-    % on applique cette m√©thode √† chaque valeur de l appartenant √† [1,L]
+    %% Utilisation de la mÈthode des moindres carrÈs pour minimiser le crit√®re Jdfa
+    % on applique cette mÈthode √† chaque valeur de l appartenant √† [1,L]
     % on se retrouve alors avec un tableau contenant le couple de minimum
     %(a1,l ; a0,l)
     
@@ -117,7 +117,7 @@ for k=1:floor(NB)
     yinittb = conv(b,yinit);
     yinitt = yinittb(floor((N)/2)+1:length(yinittb)-floor((N)/2)+1);
 %     yinitt = yinittest;
-    % On r√©sout l'√©quation matricielle MSAl = Sigma, en inversant la matrice
+    % On rÈsout l'Èquation matricielle MSAl = Sigma, en inversant la matrice
     % MS, on obtient Al qui contient al,0 et al,1
     for l = 1:L
         nbeta=n+N*(l-1);
@@ -129,7 +129,7 @@ for k=1:floor(NB)
         x(:,l) = (Al(1,l)*nbeta.' + Al(2,l));
         
         yinittl = yinitt(1,(l-1)*N+1:l*N);
-        %% tendance locale que l'on soustrait au profil filtrer pour trouver le r√©sidu
+        %% tendance locale que l'on soustrait au profil filtrer pour trouver le rÈsidu
         J(1,l) = sum( (yinittl - x(:,l).').^2 );
         JDFA(1,l) = sum( (yinitl - x(:,l).').^2 );
 
@@ -138,7 +138,7 @@ for k=1:floor(NB)
     FDFA(1,k)=(1/(N*L)*FDFA(1,k)).^0.5;
 
     
-    %% On calcule le r√©sidu
+    %% On calcule le rÈsidu
     F(1,k)=sum(J(1,:));
     F(1,k)=(1/(N*L)*F(1,k)).^0.5;
     
@@ -175,7 +175,7 @@ figure
 plot(ltF,lF);
 xlabel('log(N)');
 ylabel('log(F(N))');
-title('Repr√©sentation de la puissance du r√©sidu dans la plan log(N)/log(F(N))');
+title('ReprÈsentation de la puissance du rÈsidu dans la plan log(N)/log(F(N))');
 hold on
 plot(ltF,(xminim));
 plot(ltF,(xminimDFA));
