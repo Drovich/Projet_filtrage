@@ -22,7 +22,7 @@ function varargout = interface(varargin)
 
 % Edit the above text to modify the response to help interface
 
-% Last Modified by GUIDE v2.5 04-Jan-2019 11:54:20
+% Last Modified by GUIDE v2.5 04-Jan-2019 12:11:51
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -56,6 +56,13 @@ function interface_OpeningFcn(hObject, eventdata, handles, varargin)
 handles.output = hObject;
 handles.EGG= load('dataEEG.mat');
 handles.fech=1*10^3;
+handles.window=4
+handles.noverlap=8;
+handles.nfft=256;
+handles.n_electrode=1;
+handles.n_signal=1;
+handles.window_tendance=100;
+
 
 % Update handles structure
 guidata(hObject, handles);
@@ -148,19 +155,19 @@ end
 
 
 
-function electrode_text_Callback(hObject, eventdata, handles)
-% hObject    handle to electrode_text (see GCBO)
+function n_electrode_text_Callback(hObject, eventdata, handles)
+% hObject    handle to n_electrode_text (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of electrode_text as text
-%        str2double(get(hObject,'String')) returns contents of electrode_text as a double
+% Hints: get(hObject,'String') returns contents of n_electrode_text as text
+%        str2double(get(hObject,'String')) returns contents of n_electrode_text as a double
 handles.n_electrode=str2double(get(hObject,'String'));
 guidata(hObject, handles);
 
 % --- Executes during object creation, after setting all properties.
-function electrode_text_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to electrode_text (see GCBO)
+function n_electrode_text_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to n_electrode_text (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -171,19 +178,19 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-function nsignal_text_Callback(hObject, eventdata, handles)
-% hObject    handle to nsignal_text (see GCBO)
+function n_signal_text_Callback(hObject, eventdata, handles)
+% hObject    handle to n_signal_text (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of nsignal_text as text
-%        str2double(get(hObject,'String')) returns contents of nsignal_text as a double
+% Hints: get(hObject,'String') returns contents of n_signal_text as text
+%        str2double(get(hObject,'String')) returns contents of n_signal_text as a double
 handles.n_signal=str2double(get(hObject,'String'));
 guidata(hObject, handles);
 
 % --- Executes during object creation, after setting all properties.
-function nsignal_text_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to nsignal_text (see GCBO)
+function n_signal_text_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to n_signal_text (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -298,6 +305,7 @@ function white_noise_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 y=randn(1,1000);
 handles.signal = y;
+handles.yinit=0;
 M=length(y);
 handles.t = (1:1:M)/handles.fech;
 plot(handles.t,y);
@@ -361,6 +369,7 @@ function EEG_text_Callback(hObject, eventdata, handles)
 try
     y=cell2mat(handles.EGG.dataEEG(handles.n_electrode,handles.n_electrode,handles.n_signal))';
     handles.signal=y;
+    handles.yinit=0;
     M=length(y);
     handles.t = (1:1:M)/handles.fech;
     plot( handles.t,y);
@@ -415,11 +424,7 @@ catch
     set(handles.text_main, 'String', textLabel)
 end
 guidata(hObject, handles);
-
-
-
-
-
+    
 
 % --- Executes on button press in signal_display.
 function signal_display_Callback(hObject, eventdata, handles)
@@ -435,3 +440,31 @@ catch
     set(handles.text_main, 'String', textLabel)
     
 end
+
+
+
+% --- Executes on button press in reset.
+function reset_Callback(hObject, eventdata, handles)
+% hObject    handle to reset (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+handles.window=4;
+textLabel = sprintf('%d',handles.window );
+set(handles.window_text, 'String', textLabel);
+handles.noverlap=8;
+textLabel = sprintf('%d',handles.noverlap );
+set(handles.noverlap_text, 'String', textLabel);
+handles.nfft=256;
+textLabel = sprintf('%d',handles.nfft );
+set(handles.nfft_text, 'String', textLabel);
+handles.n_electrode=1;
+textLabel = sprintf('%d',handles.n_electrode );
+set(handles.n_electrode_text, 'String', textLabel);
+handles.n_signal=1;
+textLabel = sprintf('%d',handles.n_signal );
+set(handles.n_signal_text, 'String', textLabel);
+handles.window_tendance=100;
+textLabel = sprintf('%d',handles.window_tendance );
+set(handles.window_tendance_text, 'String', textLabel);
+guidata(hObject, handles);
+
