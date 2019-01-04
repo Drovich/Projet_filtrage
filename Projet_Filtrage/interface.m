@@ -22,7 +22,7 @@ function varargout = interface(varargin)
 
 % Edit the above text to modify the response to help interface
 
-% Last Modified by GUIDE v2.5 04-Jan-2019 11:28:52
+% Last Modified by GUIDE v2.5 04-Jan-2019 11:54:20
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -419,3 +419,19 @@ guidata(hObject, handles);
 
 
 
+
+
+% --- Executes on button press in signal_display.
+function signal_display_Callback(hObject, eventdata, handles)
+% hObject    handle to signal_display (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+try
+    plot(handles.t,handles.signal);
+    textLabel = sprintf('Signal' );
+    set(handles.text_main, 'String', textLabel)
+catch
+    textLabel = sprintf('Error, please load a signal' );
+    set(handles.text_main, 'String', textLabel)
+    
+end
