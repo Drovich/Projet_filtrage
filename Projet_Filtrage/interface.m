@@ -334,6 +334,9 @@ function profil_dfa_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 try
     plot(handles.t,handles.yinit)
+    xlabel('Temps (s)');
+    ylabel('yinit(t)');
+    title('Représentation du profil du signal');
     textLabel = sprintf('Profil of the signal with DFA method');
     set(handles.text_main, 'String', textLabel);
 catch
@@ -352,6 +355,9 @@ try
     hold on
     plot(handles.t,handles.yinit_dma)
     hold off
+    xlabel('Temps (s)');
+    ylabel('yinit(t) et yinit_filtred(t)');
+    title('Représentation du profil du signal');
     legend('Profil DFA', 'Profil DMA (DFA filtred)');
     textLabel = sprintf('Profil of the signal');
     set(handles.text_main, 'String', textLabel);
@@ -359,6 +365,7 @@ catch
     textLabel = sprintf('Please use first the DMA method');
     set(handles.text_main, 'String', textLabel);
 end
+guidata(hObject, handles);
 
 
 % --- Executes on button press in EEG_text.
@@ -433,7 +440,10 @@ function signal_display_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 try
     plot(handles.t,handles.signal);
-    textLabel = sprintf('Signal' );
+    xlabel('Temps (s)');
+    ylabel('y(t)');
+    title('Représentation du signal en fonction du temps');
+    textLabel = sprintf('Signal displayed' );
     set(handles.text_main, 'String', textLabel)
 catch
     textLabel = sprintf('Error, please load a signal' );
