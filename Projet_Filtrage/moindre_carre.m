@@ -1,4 +1,4 @@
-function [alpha beta] = moindre_carre(y,t)
+function [alpha, beta] = moindre_carre(y,t)
 
 MS=[sum(t) length(y); sum((t).^2) sum(t)];
 Sigma(1,1) = sum(y);

@@ -20,7 +20,7 @@ for k=1:length(N_tab)
     % Utilisation de la méthode des moindres carrés pour minimiser le critère Jdfa
     % on applique cette méthode à  chaque valeur de l appartenant à  [1,L]
     % on se retrouve alors avec un tableau contenant le couple de minimum
-    L=floor(M/N);
+    
     b=ones(1,N)/N;
     yinit_filt = conv(b,yinit);
     yinit_filt = yinit_filt(floor(N/2)+1:length(yinit_filt)-round(N/2)+1);
@@ -28,7 +28,7 @@ for k=1:length(N_tab)
     J = (yinit - yinit_filt ).^2 ;
     % On calcule le résidu
     F(1,k)=sum(J);
-    F(1,k)=(1/(N*L)*F(1,k)).^0.5;
+    F(1,k)=(1/M*F(1,k)).^0.5;
     
 end
 tF=(1:length(F));
@@ -36,3 +36,4 @@ ltF=log10(tF);
 lF=log10(F);
 
 [alpha beta] = moindre_carre(lF,ltF);
+end

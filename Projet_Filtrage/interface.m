@@ -288,10 +288,10 @@ if handles.N_max > handles.N_start
     handles.N_tab=[handles.N_start:handles.N_max];
     textLabel = sprintf(' N = [%d:%d]',handles.N_start,handles.N_max);
     set(handles.N_tab_text, 'String', textLabel);
-    textLabel = sprintf('Value of N sucefully changed ');
+    textLabel = sprintf('Value of N successfully changed ');
     set(handles.text_main, 'String', textLabel);
 else
-    textLabel = sprintf('ERROR, load first a signal and becareful of the argument you use ');
+    textLabel = sprintf('ERROR, first load a signal and pay attention to the argument you use ');
     set(handles.text_main, 'String', textLabel);
     textLabel = sprintf(' ERROR just enter the max you want for N > Nmin');
     set(handles.N_tab_text, 'String', textLabel);
@@ -323,7 +323,7 @@ if handles.N_start < handles.N_max
     handles.N_tab=[handles.N_start:handles.N_max];
     textLabel = sprintf(' N = [%d:%d]',handles.N_start,handles.N_max);
     set(handles.N_tab_text, 'String', textLabel);
-    textLabel = sprintf('Value of N sucefully changed ');
+    textLabel = sprintf('Value of N successfully changed ');
     set(handles.text_main, 'String', textLabel);
 else
     textLabel = sprintf('ERROR, Nmin must be < at your maximum ');
@@ -504,9 +504,9 @@ try
     plot(handles.t,handles.yinit_dma)
     hold off
     xlabel('Temps (s)');
-    ylabel('yinit(t) et yinit_{filtred}(t)');
+    ylabel('yinit(t) et yinit_{filtered}(t)');
     title('Représentation du profil du signal');
-    legend('Profil DFA', 'Profil DMA (DFA filtred)');
+    legend('Profil DFA', 'Profil DMA (DFA filtered)');
     textLabel = sprintf('Profil of the signal');
     set(handles.text_main, 'String', textLabel);
 catch
@@ -530,7 +530,7 @@ try
     plot( handles.t,y);
     xlabel('Temps (s)');
     ylabel('y(t)');
-    title('Représentation du signal EEG');
+    title('Représentation temporelle du signal EEG');
     textLabel = sprintf('Signal load');
     set(handles.text_main, 'String', textLabel);
 catch
@@ -573,13 +573,13 @@ try
         return
     end
 catch
-    textLabel = sprintf('Error, please use first load a signal' );
+    textLabel = sprintf('Error, please load a signal' );
     set(handles.text_main, 'String', textLabel)
     return;
 end
 try
     plot_tendance(y,handles.window_tendance,handles.t,handles.fech);
-    textLabel = sprintf('Tendance local du signal' );
+    textLabel = sprintf('Tendance locale du signal' );
     set(handles.text_main, 'String', textLabel)
 catch
     textLabel = sprintf('Error, window_tendance must be > 0' );
@@ -597,7 +597,7 @@ try
     plot(handles.t,handles.signal);
     xlabel('Temps (s)');
     ylabel('y(t)');
-    title('Représentation du signal en fonction du temps');
+    title('Représentation temporelle du signal');
     textLabel = sprintf('Signal displayed' );
     set(handles.text_main, 'String', textLabel)
 catch
@@ -656,3 +656,4 @@ set(handles.text_main, 'String', textLabel);
 
 
 guidata(hObject, handles);
+
