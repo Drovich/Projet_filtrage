@@ -1,18 +1,18 @@
 function [J,alpha,beta,yinit,Al,lF,ltF] = DFA_function(y)
 
-%% Initialisation
+% Initialisation
 M=length(y);
 yinit=zeros(1,M);
 
-%% Représentation temporelle et temps fréquence
+% Représentation temporelle et temps fréquence
 
-%% Extraction du profil
+% Extraction du profil
 
 for m = 1:M
     yinit(1,m) = sum(y(1,1:m) - mean(y));
 end
 
-%% Décomposition du profil en L segment de taille N
+% Décomposition du profil en L segment de taille N
 % Nb=floor(M/4);
 N_tab=[11 13 17 21 27 35 47 59 77 101];
 F=zeros(1,length(N_tab));
@@ -21,7 +21,7 @@ F=zeros(1,length(N_tab));
 for k=1:length(N_tab)
     N=N_tab(k);
 %     N=k+2;
-    %% Utilisation de la méthode des moindres carrés pour minimiser le critère Jdfa
+    % Utilisation de la méthode des moindres carrés pour minimiser le critère Jdfa
     % on applique cette méthode Ã  chaque valeur de l appartenant à  [1,L]
     % on se retrouve alors avec un tableau contenant le couple de minimum
     %(a1,l ; a0,l)
@@ -41,11 +41,11 @@ for k=1:length(N_tab)
         [Al(1,l) Al(2,l)] = moindre_carre(yinitl,nbeta);
 
         x(:,l) = (Al(1,l)*nbeta + Al(2,l));
-        %% tendance locale que l'on soustrait au profil pour trouver le résidu
+        % tendance locale que l'on soustrait au profil pour trouver le résidu
         J(1,l) = sum( (yinitl -x(:,l).').^2 );
 
     end 
-    %% On calcule le résidu
+    % On calcule le résidu
     F(1,k)=sum(J(1,:));
     F(1,k)=(1/(N*L)*F(1,k)).^0.5;
 
