@@ -292,7 +292,7 @@ function dma_button_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% try
+try
     y=handles.signal;
     [J,alpha_dma,beta_dma,yinit,yinit_filt,lF_dma,ltF] = DMA_function(y);
     handles.alpha_dma=alpha_dma;
@@ -304,10 +304,10 @@ function dma_button_Callback(hObject, eventdata, handles)
     plot_regularite(alpha_dma,beta_dma,lF_dma,ltF)
     textLabel = sprintf('Regularity with DMA method : %i ', alpha_dma );
     set(handles.text_main, 'String', textLabel);
-% catch
+catch
     textLabel = sprintf('Please first load a signal');
     set(handles.text_main, 'String', textLabel);
-% end
+end
 guidata(hObject, handles);
 
 
@@ -339,8 +339,8 @@ function pink_noise_Callback(hObject, eventdata, handles)
 
 % Hint: get(hObject,'Value') returns toggle state of pink_noise
 cn = dsp.ColoredNoise('Color','pink');
-x=zeros(1,1000);
 y = cn();
+y=y';
 handles.signal = y;
 handles.yinit=0;
 M=length(y);
@@ -377,6 +377,11 @@ function profil_dma_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 try
+    if handles.yinit==0
+        textLabel = sprintf('Error, please use first DMA or DFA method' );
+        set(handles.text_main, 'String', textLabel)
+        return
+    end
     plot(handles.t,handles.yinit)
     hold on
     plot(handles.t,handles.yinit_dma)
@@ -445,13 +450,20 @@ function tendance_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 try
     y=handles.yinit;
+    if y==0
+        textLabel = sprintf('Error, please use first DMA or DFA method' );
+        set(handles.text_main, 'String', textLabel)
+        return
+    end
 catch
-    textLabel = sprintf('Error, please use first DMA or DFA method' );
+    textLabel = sprintf('Error, please use first load a signal' );
     set(handles.text_main, 'String', textLabel)
     return;
 end
 try
     plot_tendance(y,handles.window_tendance,handles.t,handles.fech);
+    textLabel = sprintf('Tendance local du signal' );
+    set(handles.text_main, 'String', textLabel)
 catch
     textLabel = sprintf('Error, window_tendance must be > 0' );
     set(handles.text_main, 'String', textLabel)

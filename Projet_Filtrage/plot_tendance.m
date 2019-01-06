@@ -27,3 +27,4 @@ for l = 1:L
     plot([N*l N*l ]/fech,[min(yinit)-0.1*max(abs(yinit)) max(yinit)+0.1*max(abs(yinit))],'r')
 end
 hold off
+end

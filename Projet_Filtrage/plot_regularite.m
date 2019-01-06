@@ -7,3 +7,4 @@ title('Représentation de la puissance du résidu dans la plan log(N)/log(F(N))');
 hold on
 plot(ltF,(xminimDMA));
 hold off
+end

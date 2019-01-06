@@ -22,7 +22,7 @@ function varargout = interface(varargin)
 
 % Edit the above text to modify the response to help interface
 
-% Last Modified by GUIDE v2.5 04-Jan-2019 12:11:51
+% Last Modified by GUIDE v2.5 06-Jan-2019 15:03:32
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -69,9 +69,12 @@ set(handles.nfft_text, 'String', textLabel);
 handles.n_electrode=1;
 textLabel = sprintf('%d',handles.n_electrode );
 set(handles.n_electrode_text, 'String', textLabel);
-handles.n_signal=1;
-textLabel = sprintf('%d',handles.n_signal );
-set(handles.n_signal_text, 'String', textLabel);
+handles.n_sujet=1;
+textLabel = sprintf('%d',handles.n_sujet );
+set(handles.n_sujet_text, 'String', textLabel);
+handles.phase=1;
+textLabel = sprintf('%d',handles.phase );
+set(handles.phase_text, 'String', textLabel);
 handles.window_tendance=100;
 textLabel = sprintf('%d',handles.window_tendance );
 set(handles.window_tendance_text, 'String', textLabel);
@@ -191,19 +194,19 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-function n_signal_text_Callback(hObject, eventdata, handles)
-% hObject    handle to n_signal_text (see GCBO)
+function n_sujet_text_Callback(hObject, eventdata, handles)
+% hObject    handle to n_sujet_text (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of n_signal_text as text
-%        str2double(get(hObject,'String')) returns contents of n_signal_text as a double
-handles.n_signal=str2double(get(hObject,'String'));
+% Hints: get(hObject,'String') returns contents of n_sujet_text as text
+%        str2double(get(hObject,'String')) returns contents of n_sujet_text as a double
+handles.n_sujet=str2double(get(hObject,'String'));
 guidata(hObject, handles);
 
 % --- Executes during object creation, after setting all properties.
-function n_signal_text_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to n_signal_text (see GCBO)
+function n_sujet_text_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to n_sujet_text (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -213,6 +216,27 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
     set(hObject,'BackgroundColor','white');
 end
 
+function phase_text_Callback(hObject, eventdata, handles)
+% hObject    handle to phase_text (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of phase_text as text
+%        str2double(get(hObject,'String')) returns contents of phase_text as a double
+handles.phase=str2double(get(hObject,'String'));
+guidata(hObject, handles);
+
+% --- Executes during object creation, after setting all properties.
+function phase_text_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to phase_text (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
 
 function window_tendance_text_Callback(hObject, eventdata, handles)
 % hObject    handle to window_tendance_text (see GCBO)
@@ -359,6 +383,11 @@ function profil_dfa_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 try
+    if handles.yinit==0
+        textLabel = sprintf('Error, please use first DMA or DFA method' );
+        set(handles.text_main, 'String', textLabel);
+        return;
+    end
     plot(handles.t,handles.yinit)
     xlabel('Temps (s)');
     ylabel('yinit(t)');
@@ -366,7 +395,7 @@ try
     textLabel = sprintf('Profil of the signal with DFA method');
     set(handles.text_main, 'String', textLabel);
 catch
-    textLabel = sprintf('Please use first the DFA (or DMA) method');
+    textLabel = sprintf('Please use first load a signal');
     set(handles.text_main, 'String', textLabel);
 end
 guidata(hObject, handles);
@@ -377,6 +406,11 @@ function profil_dma_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 try
+    if handles.yinit==0
+        textLabel = sprintf('Error, please use first DMA or DFA method' );
+        set(handles.text_main, 'String', textLabel);
+        return;
+    end
     plot(handles.t,handles.yinit)
     hold on
     plot(handles.t,handles.yinit_dma)
@@ -400,7 +434,7 @@ function EEG_text_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 try
-    y=cell2mat(handles.EGG.dataEEG(handles.n_electrode,handles.n_electrode,handles.n_signal))';
+    y=cell2mat(handles.EGG.dataEEG(handles.phase,handles.n_electrode,handles.n_sujet))';
     handles.signal=y;
     handles.yinit=0;
     M=length(y);
@@ -445,13 +479,20 @@ function tendance_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 try
     y=handles.yinit;
+    if y==0
+        textLabel = sprintf('Error, please use first DMA or DFA method' );
+        set(handles.text_main, 'String', textLabel)
+        return
+    end
 catch
-    textLabel = sprintf('Error, please use first DMA or DFA method' );
+    textLabel = sprintf('Error, please use first load a signal' );
     set(handles.text_main, 'String', textLabel)
     return;
 end
 try
     plot_tendance(y,handles.window_tendance,handles.t,handles.fech);
+    textLabel = sprintf('Tendance local du signal' );
+    set(handles.text_main, 'String', textLabel)
 catch
     textLabel = sprintf('Error, window_tendance must be > 0' );
     set(handles.text_main, 'String', textLabel)
@@ -496,11 +537,16 @@ set(handles.nfft_text, 'String', textLabel);
 handles.n_electrode=1;
 textLabel = sprintf('%d',handles.n_electrode );
 set(handles.n_electrode_text, 'String', textLabel);
-handles.n_signal=1;
-textLabel = sprintf('%d',handles.n_signal );
-set(handles.n_signal_text, 'String', textLabel);
+handles.n_sujet=1;
+textLabel = sprintf('%d',handles.n_sujet )
+set(handles.n_sujet_text, 'String', textLabel);
+handles.phase=1;
+textLabel = sprintf('%d',handles.phase );
+set(handles.phase_text, 'String', textLabel);
 handles.window_tendance=100;
 textLabel = sprintf('%d',handles.window_tendance );
 set(handles.window_tendance_text, 'String', textLabel);
 guidata(hObject, handles);
+
+
 
