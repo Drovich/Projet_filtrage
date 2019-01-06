@@ -22,7 +22,7 @@ function varargout = interface(varargin)
 
 % Edit the above text to modify the response to help interface
 
-% Last Modified by GUIDE v2.5 06-Jan-2019 15:03:32
+% Last Modified by GUIDE v2.5 06-Jan-2019 16:57:46
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -85,6 +85,9 @@ handles.window_tendance=100;
 textLabel = sprintf('%d',handles.window_tendance );
 set(handles.window_tendance_text, 'String', textLabel);
 
+handles.N_tab=[11 13 17 21 27 35 47 59 77 101];
+textLabel = sprintf(' DEFAULT :  N=[11 13 17 21 27 35 47 59 77 101]');
+set(handles.N_tab_text, 'String', textLabel);
 
 % Update handles structure
 guidata(hObject, handles);
@@ -267,6 +270,42 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
+function N_tab_text_Callback(hObject, eventdata, handles)
+% hObject    handle to N_tab_text (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of N_tab_text as text
+%        str2double(get(hObject,'String')) returns contents of N_tab_text as a double
+N_tab=str2double(get(hObject,'String'));
+if N_tab > 2
+    handles.N_tab=[3:N_tab];
+    textLabel = sprintf(' N = [3:%d]',N_tab);
+    set(handles.N_tab_text, 'String', textLabel);
+    textLabel = sprintf('Value of N sucefully changed ');
+    set(handles.text_main, 'String', textLabel);
+else
+    textLabel = sprintf('ERROR, load first a signal and becareful of the argument you use ');
+    set(handles.text_main, 'String', textLabel);
+    textLabel = sprintf(' ERROR just enter the max of the interval you want for N');
+    set(handles.N_tab_text, 'String', textLabel);
+end
+
+guidata(hObject, handles);
+
+% --- Executes during object creation, after setting all properties.
+function N_tab_text_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to N_tab_text (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
 
 function text_main_Callback(hObject, eventdata, handles)
 % hObject    handle to text_main (see GCBO)
@@ -293,6 +332,8 @@ end
 
 
 
+
+
 % --- Executes on button press in dfa_button.
 function dfa_button_Callback(hObject, eventdata, handles)
 % hObject    handle to dfa_button (see GCBO)
@@ -300,7 +341,7 @@ function dfa_button_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 try
     y=handles.signal;
-    [J,alpha_dfa,beta_dfa,yinit,Al,lF_dfa,ltF] = DFA_function(y);
+    [J,alpha_dfa,beta_dfa,yinit,Al,lF_dfa,ltF] = DFA_function(y,handles.N_tab);
     handles.alpha_dfa=alpha_dfa;
     handles.beta_dfa=beta_dfa;
     handles.lF_dfa=lF_dfa;
@@ -324,7 +365,7 @@ function dma_button_Callback(hObject, eventdata, handles)
 
 try
     y=handles.signal;
-    [J,alpha_dma,beta_dma,yinit,yinit_filt,lF_dma,ltF] = DMA_function(y);
+    [J,alpha_dma,beta_dma,yinit,yinit_filt,lF_dma,ltF] = DMA_function(y,handles.N_tab);
     handles.alpha_dma=alpha_dma;
     handles.beta_dma=beta_dma;
     handles.lF_dma=lF_dma;
@@ -558,6 +599,13 @@ set(handles.phase_text, 'String', textLabel);
 handles.window_tendance=100;
 textLabel = sprintf('%d',handles.window_tendance );
 set(handles.window_tendance_text, 'String', textLabel);
+
+handles.N_tab=[11 13 17 21 27 35 47 59 77 101];
+textLabel = sprintf(' DEFAULT :  N=[11 13 17 21 27 35 47 59 77 101]');
+set(handles.N_tab_text, 'String', textLabel);
+
+textLabel = sprintf(' All value reset to default');
+set(handles.text_main, 'String', textLabel);
 guidata(hObject, handles);
 
 
