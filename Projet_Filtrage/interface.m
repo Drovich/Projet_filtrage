@@ -22,7 +22,7 @@ function varargout = interface(varargin)
 
 % Edit the above text to modify the response to help interface
 
-% Last Modified by GUIDE v2.5 06-Jan-2019 16:57:46
+% Last Modified by GUIDE v2.5 06-Jan-2019 17:32:31
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -88,6 +88,12 @@ set(handles.window_tendance_text, 'String', textLabel);
 handles.N_tab=[11 13 17 21 27 35 47 59 77 101];
 textLabel = sprintf(' DEFAULT :  N=[11 13 17 21 27 35 47 59 77 101]');
 set(handles.N_tab_text, 'String', textLabel);
+
+handles.N_start=3;
+textLabel = sprintf(' %d',handles.N_start);
+set(handles.N_start_text, 'String', textLabel);
+
+handles.N_max=222;
 
 % Update handles structure
 guidata(hObject, handles);
@@ -277,17 +283,17 @@ function N_tab_text_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'String') returns contents of N_tab_text as text
 %        str2double(get(hObject,'String')) returns contents of N_tab_text as a double
-N_tab=str2double(get(hObject,'String'));
-if N_tab > 2
-    handles.N_tab=[3:N_tab];
-    textLabel = sprintf(' N = [3:%d]',N_tab);
+handles.N_max=str2double(get(hObject,'String'));
+if handles.N_max > handles.N_start
+    handles.N_tab=[handles.N_start:handles.N_max];
+    textLabel = sprintf(' N = [%d:%d]',handles.N_start,handles.N_max);
     set(handles.N_tab_text, 'String', textLabel);
     textLabel = sprintf('Value of N sucefully changed ');
     set(handles.text_main, 'String', textLabel);
 else
     textLabel = sprintf('ERROR, load first a signal and becareful of the argument you use ');
     set(handles.text_main, 'String', textLabel);
-    textLabel = sprintf(' ERROR just enter the max of the interval you want for N');
+    textLabel = sprintf(' ERROR just enter the max you want for N > Nmin');
     set(handles.N_tab_text, 'String', textLabel);
 end
 
@@ -296,6 +302,41 @@ guidata(hObject, handles);
 % --- Executes during object creation, after setting all properties.
 function N_tab_text_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to N_tab_text (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+function N_start_text_Callback(hObject, eventdata, handles)
+% hObject    handle to N_start_text (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of N_start_text as text
+%        str2double(get(hObject,'String')) returns contents of N_start_text as a double
+handles.N_start=str2double(get(hObject,'String'));
+if handles.N_start < handles.N_max
+    handles.N_tab=[handles.N_start:handles.N_max];
+    textLabel = sprintf(' N = [%d:%d]',handles.N_start,handles.N_max);
+    set(handles.N_tab_text, 'String', textLabel);
+    textLabel = sprintf('Value of N sucefully changed ');
+    set(handles.text_main, 'String', textLabel);
+else
+    textLabel = sprintf('ERROR, Nmin must be < at your maximum ');
+    set(handles.text_main, 'String', textLabel);
+    textLabel = sprintf(' ERROR please enter a number > Nmin');
+    set(handles.N_tab_text, 'String', textLabel);
+end
+guidata(hObject, handles);
+
+
+% --- Executes during object creation, after setting all properties.
+function N_start_text_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to N_start_text (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -604,9 +645,21 @@ handles.N_tab=[11 13 17 21 27 35 47 59 77 101];
 textLabel = sprintf(' DEFAULT :  N=[11 13 17 21 27 35 47 59 77 101]');
 set(handles.N_tab_text, 'String', textLabel);
 
+handles.N_start=3;
+textLabel = sprintf('%d',handles.N_start );
+set(handles.N_start_text, 'String', textLabel);
+
+handles.N_max=222;
+
 textLabel = sprintf(' All value reset to default');
 set(handles.text_main, 'String', textLabel);
+
+
 guidata(hObject, handles);
+
+
+
+
 
 
 
