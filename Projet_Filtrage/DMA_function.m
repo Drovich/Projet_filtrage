@@ -1,4 +1,4 @@
-function [J,alpha,beta,yinit,yinit_filt,lF,ltF] = DMA_function(y,N_tab)
+function [J,alpha,beta,yinit,yinit_filt,lF,ltF] = DMA_function(y)
 
 %% Initialisation
 M=length(y);
@@ -14,6 +14,7 @@ end
 
 <<<<<<< HEAD
 % Décomposition du profil en L segment de taille N
+<<<<<<< HEAD
 =======
 %% Décomposition du profil en L segment de taille N
 % Nb=floor(M/4);
@@ -43,6 +44,29 @@ for k=1:length(N_tab)
 =======
     %% On calcule le résidu
 >>>>>>> parent of d4389e3... Spectrogram et double commentaire
+=======
+% Nb=floor(M/4);
+N_tab=[11 13 17 21 27 35 47 59 77 101];
+F=zeros(1,length(N_tab));
+% F=zeros(1,Nb);
+
+for k=1:length(N_tab)
+    N=N_tab(k);
+%     N=k+2;
+    % Utilisation de la méthode des moindres carrés pour minimiser le critÃ¨re Jdfa
+    % on applique cette méthode Ã  chaque valeur de l appartenant Ã  [1,L]
+    % on se retrouve alors avec un tableau contenant le couple de minimum
+    %(a1,l ; a0,l)
+    L=floor(M/N);
+    b=ones(1,N)/N;
+    yinit_filt = conv(b,yinit);
+%     [gd,w] = grpdelay(b,1);
+    yinit_filt = yinit_filt(floor(N/2)+1:length(yinit_filt)-floor(N/2));
+
+    J = (yinit - yinit_filt ).^2 ;
+    
+    % On calcule le résidu
+>>>>>>> parent of 43b29e5... N_tab
     F(1,k)=sum(J);
     F(1,k)=(1/(N*L)*F(1,k)).^0.5;
     
