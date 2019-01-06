@@ -22,12 +22,6 @@ function varargout = interface(varargin)
 
 % Edit the above text to modify the response to help interface
 
-<<<<<<< HEAD
-% Last Modified by GUIDE v2.5 06-Jan-2019 17:32:31
-=======
-% Last Modified by GUIDE v2.5 06-Jan-2019 15:03:32
->>>>>>> parent of 43b29e5... N_tab
-
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
@@ -83,7 +77,9 @@ handles.window_tendance=100;
 textLabel = sprintf('%d',handles.window_tendance );
 set(handles.window_tendance_text, 'String', textLabel);
 
-
+handles.N_tab=[11 13 17 21 27 35 47 59 77 101];
+textLabel = sprintf(' DEFAULT :  N=[11 13 17 21 27 35 47 59 77 101]');
+set(handles.N_tab_text, 'String', textLabel);
 handles.N_start=3;
 textLabel = sprintf(' %d',handles.N_start);
 set(handles.N_start_text, 'String', textLabel);
@@ -270,8 +266,6 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
     set(hObject,'BackgroundColor','white');
 end
 
-
-<<<<<<< HEAD
 function N_tab_text_Callback(hObject, eventdata, handles)
 % hObject    handle to N_tab_text (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -342,9 +336,6 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
     set(hObject,'BackgroundColor','white');
 end
 
-
-=======
->>>>>>> parent of 43b29e5... N_tab
 
 function text_main_Callback(hObject, eventdata, handles)
 % hObject    handle to text_main (see GCBO)
@@ -630,7 +621,6 @@ set(handles.phase_text, 'String', textLabel);
 handles.window_tendance=100;
 textLabel = sprintf('%d',handles.window_tendance );
 set(handles.window_tendance_text, 'String', textLabel);
-<<<<<<< HEAD
 
 handles.N_tab=[11 13 17 21 27 35 47 59 77 101];
 textLabel = sprintf(' DEFAULT :  N=[11 13 17 21 27 35 47 59 77 101]');
@@ -644,10 +634,6 @@ handles.N_max=222;
 
 textLabel = sprintf(' All value reset to default');
 set(handles.text_main, 'String', textLabel);
-
-
-=======
->>>>>>> parent of 43b29e5... N_tab
 guidata(hObject, handles);
 
 
