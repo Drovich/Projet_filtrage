@@ -5,8 +5,7 @@ t = (1:1:M)/fech;
 
 
 %% Représentation temporelle et temps fréquence
-
-figure 
+figure (3)
 subplot(2,1,1)
 plot(t,y);
 xlabel('Temps (s)');

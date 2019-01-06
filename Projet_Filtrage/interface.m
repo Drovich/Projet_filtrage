@@ -56,12 +56,25 @@ function interface_OpeningFcn(hObject, eventdata, handles, varargin)
 handles.output = hObject;
 handles.EGG= load('dataEEG.mat');
 handles.fech=1*10^3;
-handles.window=4
+% Intialisation des valeurs par défault
+handles.window=4;
+textLabel = sprintf('%d',handles.window );
+set(handles.window_text, 'String', textLabel);
 handles.noverlap=8;
+textLabel = sprintf('%d',handles.noverlap );
+set(handles.noverlap_text, 'String', textLabel);
 handles.nfft=256;
+textLabel = sprintf('%d',handles.nfft );
+set(handles.nfft_text, 'String', textLabel);
 handles.n_electrode=1;
+textLabel = sprintf('%d',handles.n_electrode );
+set(handles.n_electrode_text, 'String', textLabel);
 handles.n_signal=1;
+textLabel = sprintf('%d',handles.n_signal );
+set(handles.n_signal_text, 'String', textLabel);
 handles.window_tendance=100;
+textLabel = sprintf('%d',handles.window_tendance );
+set(handles.window_tendance_text, 'String', textLabel);
 
 
 % Update handles structure
@@ -281,7 +294,7 @@ function dma_button_Callback(hObject, eventdata, handles)
 
 try
     y=handles.signal;
-    [J,alpha_dma,beta_dma,yinit,yinit_filt,lF_dma,ltF] = DMA_functionv2(y);
+    [J,alpha_dma,beta_dma,yinit,yinit_filt,lF_dma,ltF] = DMA_function(y);
     handles.alpha_dma=alpha_dma;
     handles.beta_dma=beta_dma;
     handles.lF_dma=lF_dma;

@@ -21,8 +21,8 @@ F=zeros(1,length(N_tab));
 for k=1:length(N_tab)
     N=N_tab(k);
 %     N=k+2;
-    %% Utilisation de la méthode des moindres carrés pour minimiser le critÃ¨re Jdfa
-    % on applique cette méthode Ã  chaque valeur de l appartenant Ã  [1,L]
+    %% Utilisation de la méthode des moindres carrés pour minimiser le critère Jdfa
+    % on applique cette méthode Ã  chaque valeur de l appartenant à  [1,L]
     % on se retrouve alors avec un tableau contenant le couple de minimum
     %(a1,l ; a0,l)
     
