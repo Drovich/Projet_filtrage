@@ -292,7 +292,7 @@ function dma_button_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-try
+% try
     y=handles.signal;
     [J,alpha_dma,beta_dma,yinit,yinit_filt,lF_dma,ltF] = DMA_function(y);
     handles.alpha_dma=alpha_dma;
@@ -304,10 +304,10 @@ try
     plot_regularite(alpha_dma,beta_dma,lF_dma,ltF)
     textLabel = sprintf('Regularity with DMA method : %i ', alpha_dma );
     set(handles.text_main, 'String', textLabel);
-catch
+% catch
     textLabel = sprintf('Please first load a signal');
     set(handles.text_main, 'String', textLabel);
-end
+% end
 guidata(hObject, handles);
 
 
@@ -339,8 +339,8 @@ function pink_noise_Callback(hObject, eventdata, handles)
 
 % Hint: get(hObject,'Value') returns toggle state of pink_noise
 cn = dsp.ColoredNoise('Color','pink');
+x=zeros(1,1000);
 y = cn();
-y=y';
 handles.signal = y;
 handles.yinit=0;
 M=length(y);

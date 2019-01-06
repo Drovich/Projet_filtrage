@@ -5,7 +5,6 @@ M=length(y);
 yinit=zeros(1,M);
 
 %% Représentation temporelle et temps fréquence
-
 %
 %% Extraction du profil
 
