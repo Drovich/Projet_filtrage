@@ -630,7 +630,7 @@ textLabel = sprintf('%d',handles.n_electrode );
 set(handles.n_electrode_text, 'String', textLabel);
 
 handles.n_sujet=1;
-textLabel = sprintf('%d',handles.n_sujet )
+textLabel = sprintf('%d',handles.n_sujet );
 set(handles.n_sujet_text, 'String', textLabel);
 
 handles.phase=1;
