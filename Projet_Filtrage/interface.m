@@ -57,30 +57,24 @@ handles.output = hObject;
 handles.EGG= load('dataEEG.mat');
 handles.fech=1*10^3;
 % Intialisation des valeurs par défault
-handles.window=32;
+handles.window=4;
 textLabel = sprintf('%d',handles.window );
 set(handles.window_text, 'String', textLabel);
-
 handles.noverlap=8;
 textLabel = sprintf('%d',handles.noverlap );
 set(handles.noverlap_text, 'String', textLabel);
-
 handles.nfft=256;
 textLabel = sprintf('%d',handles.nfft );
 set(handles.nfft_text, 'String', textLabel);
-
 handles.n_electrode=1;
 textLabel = sprintf('%d',handles.n_electrode );
 set(handles.n_electrode_text, 'String', textLabel);
-
 handles.n_sujet=1;
 textLabel = sprintf('%d',handles.n_sujet );
 set(handles.n_sujet_text, 'String', textLabel);
-
 handles.phase=1;
 textLabel = sprintf('%d',handles.phase );
 set(handles.phase_text, 'String', textLabel);
-
 handles.window_tendance=100;
 textLabel = sprintf('%d',handles.window_tendance );
 set(handles.window_tendance_text, 'String', textLabel);
@@ -613,30 +607,24 @@ function reset_Callback(hObject, eventdata, handles)
 % hObject    handle to reset (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-handles.window=32;
+handles.window=4;
 textLabel = sprintf('%d',handles.window );
 set(handles.window_text, 'String', textLabel);
-
 handles.noverlap=8;
 textLabel = sprintf('%d',handles.noverlap );
 set(handles.noverlap_text, 'String', textLabel);
-
 handles.nfft=256;
 textLabel = sprintf('%d',handles.nfft );
 set(handles.nfft_text, 'String', textLabel);
-
 handles.n_electrode=1;
 textLabel = sprintf('%d',handles.n_electrode );
 set(handles.n_electrode_text, 'String', textLabel);
-
 handles.n_sujet=1;
 textLabel = sprintf('%d',handles.n_sujet )
 set(handles.n_sujet_text, 'String', textLabel);
-
 handles.phase=1;
 textLabel = sprintf('%d',handles.phase );
 set(handles.phase_text, 'String', textLabel);
-
 handles.window_tendance=100;
 textLabel = sprintf('%d',handles.window_tendance );
 set(handles.window_tendance_text, 'String', textLabel);
