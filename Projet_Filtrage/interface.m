@@ -483,7 +483,7 @@ try
     textLabel = sprintf('Profil of the signal with DFA method');
     set(handles.text_main, 'String', textLabel);
 catch
-    textLabel = sprintf('Please use first load a signal');
+    textLabel = sprintf('Please load a signal');
     set(handles.text_main, 'String', textLabel);
 end
 guidata(hObject, handles);

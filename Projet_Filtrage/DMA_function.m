@@ -24,7 +24,7 @@ for k=1:length(N_tab)
     b=ones(1,N)/N;
     yinit_filt = conv(b,yinit);
     yinit_filt = yinit_filt(floor(N/2)+1:length(yinit_filt)-round(N/2)+1);
-    
+    % délai de groupe (N-1)/2
     J = (yinit - yinit_filt ).^2 ;
     % On calcule le résidu
     F(1,k)=sum(J);
